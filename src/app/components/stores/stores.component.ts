@@ -3,10 +3,10 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { combineLatest, map, Observable } from 'rxjs';
-import { StoreHomePageQueryModel } from 'src/app/models/store-query.model';
-import { StoreTagModel } from '../../models/store.model';
+import { Observable, combineLatest, map, shareReplay } from 'rxjs';
+import { StoreHomePageQueryModel } from '../../query-models/store-query.model';
 import { StoresService } from '../../services/stores.service';
+import { StoreTagModel } from '../../models/store.model';
 
 @Component({
   selector: 'app-stores',
@@ -20,6 +20,7 @@ export class StoresComponent {
     this._storesService.getAll(),
     this._storesService.getStoreTags(),
   ]).pipe(
+    shareReplay(1),
     map(([stores, tags]) =>
       stores.map((store) => ({
         id: store.id,
@@ -29,6 +30,9 @@ export class StoresComponent {
         logoUrl: store.logoUrl,
       }))
     )
+  );
+  readonly vendorsQuantity$: Observable<number> = this.stores$.pipe(
+    map((stores) => stores.length)
   );
 
   constructor(private _storesService: StoresService) {}
