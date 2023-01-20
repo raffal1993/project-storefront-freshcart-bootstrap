@@ -27,10 +27,12 @@
               />
             </a>
 
-            <div class="d-flex align-items-center lh-1">
+            <div class="d-flex d-md-none align-items-center lh-1">
               <!-- Button -->
               <button
-                class="navbar-toggler collapsed"
+                (click)="onClickHamburgerMenu()"
+                class="navbar-toggler"
+                [ngClass]="{ collapsed: isCollapsed$ | async }"
                 type="button"
                 aria-controls="navbar-default"
                 aria-label="Toggle navigation"
@@ -42,7 +44,7 @@
             </div>
           </div>
         </div>
-        <ul class="nav d-none d-lg-flex">
+        <ul class="nav d-none d-md-flex">
           <li *ngFor="let item of categories$ | async" class="nav-item">
             <a
               [routerLink]="'categories/' + item.id"
@@ -58,7 +60,10 @@
 <div class="border-bottom pb-lg-4 pb-3">
   <nav class="navbar navbar-expand-lg navbar-light navbar-default pt-0 pb-0">
     <div class="container px-0 px-md-3">
-      <div class="offcanvas offcanvas-start p-4 p-lg-0">
+      <div
+        class="offcanvas offcanvas-start p-4 p-lg-0 d-md-none"
+        [ngClass]="{ show: !(isCollapsed$ | async) }"
+      >
         <div
           class="d-flex justify-content-between align-items-center mb-2 d-block d-lg-none"
         >
@@ -67,9 +72,25 @@
               src="/assets/images/logo/freshcart-logo.svg"
               alt="eCommerce HTML Template"
           /></a>
-          <button type="button" class="btn-close" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="onClickHamburgerMenu('close')"
+          ></button>
         </div>
-        <div class="d-block"></div>
+        <div class="d-block d-md-none">
+          <ul class="navbar-nav">
+            <li *ngFor="let item of categories$ | async" class="nav-item">
+              <a
+                class="nav-link"
+                [routerLink]="'categories/' + item.id"
+                role="button"
+                >{{ item.name }}</a
+              >
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>
