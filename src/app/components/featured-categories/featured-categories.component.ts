@@ -34,6 +34,10 @@ export class FeaturedCategoriesComponent {
   > = combineLatest([this.products$, this.categories$]).pipe(
     map(([products, categories]) => ({
       name: this._fruitsAndVegetablesCategoryName,
+      categoryId: this._getCategoryId(
+        categories,
+        this._fruitsAndVegetablesCategoryName
+      ),
       products: this._getCategoryProducts(
         categories,
         products,
@@ -47,6 +51,10 @@ export class FeaturedCategoriesComponent {
   > = combineLatest([this.products$, this.categories$]).pipe(
     map(([products, categories]) => ({
       name: this._snackAndMunchiesCategoryName,
+      categoryId: this._getCategoryId(
+        categories,
+        this._snackAndMunchiesCategoryName
+      ),
       products: this._getCategoryProducts(
         categories,
         products,
@@ -82,6 +90,7 @@ export class FeaturedCategoriesComponent {
           : 1
       )
       .map((fProd) => ({
+        id: fProd.id,
         name: fProd.name,
         price: fProd.price,
         imgUrl: fProd.imageUrl,
@@ -89,12 +98,14 @@ export class FeaturedCategoriesComponent {
       .slice(0, this._productsLimit);
   }
 
+  private _getCategoryId(
+    categories: CategoryModel[],
+    category: string
+  ): string {
+    return categories.find((cat) => cat.name === category)?.id || '';
+  }
+
   private _fruitsAndVegetablesCategoryName = `Fruits & Vegetables`;
   private _snackAndMunchiesCategoryName = `Snack & Munchies`;
   private _productsLimit = 5;
-
-  ngOnInit(): void {
-    this.fruitsAndVegetables$.subscribe((data) => console.log(data));
-    this.snackAndMunchies$.subscribe((data) => console.log(data));
-  }
 }
