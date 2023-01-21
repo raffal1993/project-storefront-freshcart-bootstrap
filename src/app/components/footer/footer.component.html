@@ -1,10 +1,10 @@
-<footer class="footer bottom-0 fixed-bottom">
+<footer class="footer bottom-0 pt-4 pt-md-12">
   <div class="container text-center">
-    <div class="row mb-4">
+    <div class="row row-cols-1 row-cols-md-3 mb-4">
       <div class="col text-start">
         <p class="fw-bold py-2 pe-2">Categories</p>
         <ul class="navbar-nav">
-          <li *ngFor="let item of categories$ | async" class="nav-item">
+          <li *ngFor="let item of categories$ | async" class="nav-item d-flex">
             <a
               class="nav-link p-0"
               [routerLink]="'categories/' + item.id"
@@ -15,9 +15,9 @@
         </ul>
       </div>
       <div class="col text-start">
-        <p class="fw-bold py-2 pe-2">Stores</p>
+        <p class="fw-bold py-2 pe-2 mt-4 mt-md-0">Stores</p>
         <ul class="navbar-nav">
-          <li *ngFor="let item of stores$ | async" class="nav-item">
+          <li *ngFor="let item of stores$ | async" class="nav-item d-flex">
             <a
               class="nav-link p-0"
               [routerLink]="'stores/' + item.id"
@@ -28,9 +28,9 @@
         </ul>
       </div>
       <div class="col text-start">
-        <p class="fw-bold py-2 pe-2">Get to know us</p>
+        <p class="fw-bold py-2 pe-2 mt-4 mt-md-0">Get to know us</p>
         <ul class="navbar-nav">
-          <li *ngFor="let item of getToKnowUs$ | async" class="nav-item">
+          <li *ngFor="let item of getToKnowUs$ | async" class="nav-item d-flex">
             <a class="nav-link pt-0 pb-2" role="button">{{ item }}</a>
           </li>
         </ul>
@@ -68,12 +68,12 @@
             </li>
           </ul>
         </div>
-        <div class="col-lg-7 mt-4 mt-md-0">
-          <ul class="list-inline mb-0 text-lg-end text-center">
-            <li class="list-inline-item mb-2 mb-md-0 text-dark">
+        <div class="col-lg-6 mt-4 mt-md-0">
+          <ul class="list-inline mb-0 text-center">
+            <li class="list-inline-item mb-2 mb-md-0 w-100 text-dark">
               Get deliveries with FreshCart
             </li>
-            <li class="list-inline-item ms-4">
+            <li class="list-inline-item">
               <a href="#!">
                 <img src="assets/images/appbutton/appstore-btn.svg" alt=""
               /></a>
