@@ -1,0 +1,63 @@
+<section class="my-lg-14 my-8">
+  <div class="container pb-8 pb-md-12">
+    <ng-container *ngIf="fruitsAndVegetables$ | async as item">
+      <h5 class="row fw-bold fs-4 text-dark p-3">{{ item.name }}</h5>
+      <div class="row row-cols-3 row-cols-lg-5 g-3">
+        <div *ngFor="let product of item.products" class="col">
+          <a
+            class="text-decoration-none text-inherit"
+            [routerLink]="'categories/' + item.categoryId"
+            ><!-- card -->
+            <div class="card card-product">
+              <div class="card-body text-center px-2 py-1">
+                <!-- img -->
+                <img
+                  [src]="'.' + product.imgUrl"
+                  [alt]="product.name"
+                  class="w-100"
+                /><!-- text -->
+                <div class="text-truncate p-2 fw-bold text-start">
+                  {{ product.name }}
+                </div>
+                <div class="text-truncate p-2 fw-bold text-start">
+                  {{ product.price | currency }}
+                </div>
+              </div>
+            </div></a
+          >
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="container pb-12 pb-md-8">
+    <ng-container *ngIf="snackAndMunchies$ | async as item">
+      <h5 class="row fw-bold fs-4 text-dark p-3">{{ item.name }}</h5>
+      <div class="row row-cols-3 row-cols-lg-5 g-3">
+        <div *ngFor="let product of item.products" class="col">
+          <a
+            class="text-decoration-none text-inherit"
+            [routerLink]="'categories/' + item.categoryId"
+            ><!-- card -->
+            <div class="card card-product">
+              <div class="card-body text-center px-2 py-1">
+                <!-- img -->
+                <img
+                  [src]="'.' + product.imgUrl"
+                  [alt]="product.name"
+                  class="w-100"
+                /><!-- text -->
+                <div class="text-truncate p-2 fw-bold text-start">
+                  {{ product.name }}
+                </div>
+                <div class="text-truncate p-2 fw-bold text-start">
+                  {{ product.price | currency }}
+                </div>
+              </div>
+            </div></a
+          >
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</section>
