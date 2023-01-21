@@ -1,0 +1,52 @@
+<section class="my-lg-14 my-8">
+  <div class="container">
+    <h5 class="row fw-bold fs-4 text-dark py-3 px-1">Stores</h5>
+    <h5 class="row fw-bold fs-6 text-dark py-3 px-1 d-inline">
+      We have
+      <span class="text-success p-0">{{ vendorsQuantity$ | async }}</span>
+      vendors now
+    </h5>
+    <div class="row row-cols-1 row-cols-lg-3 row-cols-sm-2 gap-3 mt-3">
+      <div *ngFor="let item of stores$ | async" class="row">
+        <div class="card flex-row align-items-center py-5 px-4 card-product">
+          <div>
+            <img
+              [src]="item.logoUrl"
+              [alt]="item.name"
+              class="rounded-circle icon-shape icon-xl"
+            />
+          </div>
+          <div class="ms-6">
+            <h5 class="mb-1">
+              <a [routerLink]="'stores/' + item.id" class="text-inherit">{{
+                item.name
+              }}</a>
+            </h5>
+            <div class="small text-muted">
+              <ng-container *ngFor="let subitem of item.tags; last as last"
+                ><span>{{ subitem }}</span
+                ><span *ngIf="!last" class="mx-1"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="4"
+                    height="4"
+                    fill="#C1C7C6"
+                    class="bi bi-circle-fill align-middle"
+                    viewBox="0 0 16 16"
+                  >
+                    <circle cx="8" cy="8" r="8" /></svg
+                ></span>
+              </ng-container>
+            </div>
+            <div>
+              <!-- badge -->
+              <div class="badge text-bg-light border">
+                {{ item.distanceInMeters }} km
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
