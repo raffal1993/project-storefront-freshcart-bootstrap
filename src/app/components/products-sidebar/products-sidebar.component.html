@@ -1,0 +1,29 @@
+<div
+  class="offcanvas offcanvas-start offcanvas-collapse w-md-50"
+  tabindex="-1"
+  id="offcanvasCategory"
+  aria-labelledby="offcanvasCategoryLabel"
+>
+  <div class="offcanvas-body ps-lg-2 pt-lg-0">
+    <!-- CATEGORIES -->
+    <div class="mb-8">
+      <!-- title -->
+      <h5 class="mb-3">Categories</h5>
+      <!-- nav -->
+      <ul class="nav nav-category" id="categoryCollapseMenu">
+        <li
+          *ngFor="let item of categories$ | async"
+          class="nav-item border-bottom w-100 collapsed"
+          data-bs-toggle="collapse"
+          data-bs-target="#categoryFlushOne"
+          aria-expanded="false"
+          aria-controls="categoryFlushOne"
+        >
+          <a class="nav-link" [routerLink]="'/categories/' + item.id"
+            >{{ item.name }} <i class="feather-icon icon-chevron-right"></i
+          ></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
