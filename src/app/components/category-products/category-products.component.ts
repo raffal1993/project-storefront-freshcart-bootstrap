@@ -5,11 +5,15 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, map, shareReplay } from 'rxjs';
-import { ProductQueryModel } from 'src/app/query-models/categories-products-page-query.model';
 import { CategoryModel } from '../../models/category.model';
 import { ProductModel } from '../../models/product.model';
+import { ProductQueryModel } from '../../query-models/categories-products-page-query.model';
 import { CategoriesService } from '../../services/categories.service';
 import { ProductsService } from '../../services/products.service';
+import { ProductsOptionsService } from '../../services/products-options.service';
+import { SortOptions } from 'src/app/types/sortOptions.type';
+import { getProductsWithRatingStars } from 'src/app/utils/getProductsWithRatingStars';
+import { sortProducts } from 'src/app/utils/sortProducts';
 
 @Component({
   selector: 'app-category-products',
@@ -37,39 +41,29 @@ export class CategoryProductsComponent {
     )
   );
 
+  readonly activeSortOption$: Observable<SortOptions> =
+    this._productsOptionsService._activeSortOptionsSubject.asObservable();
+
   readonly customizedProducts$: Observable<ProductQueryModel[]> = combineLatest(
-    [this.products$, this.category$]
+    [this.products$, this.category$, this.activeSortOption$]
   ).pipe(
-    // Filter by category --->
-    map(([products, category]) =>
-      products.filter((prod) => prod.categoryId === category?.id)
-    ),
-    // Add ratingStars property --->
-    map((products) => this._getProductsWithRatingStars(products))
+    map(([products, category, sortOption]) => {
+      // Filter by category --->
+      const filteredProducts = products.filter(
+        (prod) => prod.categoryId === category?.id
+      );
+      // Add ratingStars property --->
+      const productsWithRatingStars =
+        getProductsWithRatingStars(filteredProducts);
+      // Sort --->
+      return sortProducts(productsWithRatingStars, sortOption);
+    })
   );
 
   constructor(
     private _categoriesService: CategoriesService,
     private _activatedRoute: ActivatedRoute,
-    private _productsService: ProductsService
+    private _productsService: ProductsService,
+    private _productsOptionsService: ProductsOptionsService
   ) {}
-
-  private _getProductsWithRatingStars(
-    products: ProductModel[]
-  ): ProductQueryModel[] {
-    return products.map((prod) => {
-      const fill = Math.floor(prod.ratingValue);
-      const half = prod.ratingValue - fill === 0 ? 0 : 1;
-      const empty = 5 - fill - half;
-
-      return {
-        ...prod,
-        ratingStars: {
-          fill: Array(fill),
-          half: Array(half),
-          empty: Array(empty),
-        },
-      };
-    });
-  }
 }
