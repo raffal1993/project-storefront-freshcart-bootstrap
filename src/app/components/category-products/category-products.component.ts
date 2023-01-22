@@ -20,12 +20,13 @@ export class CategoryProductsComponent {
     .getAll()
     .pipe(shareReplay(1));
 
-  readonly category$: Observable<CategoryModel | undefined> = combineLatest([
+  readonly category$: Observable<CategoryModel | null> = combineLatest([
     this.categories$,
     this._activatedRoute.params.pipe(map((params) => params['categoryId'])),
   ]).pipe(
-    map(([categories, categoryId]) =>
-      categories.find((cat) => cat.id === categoryId)
+    map(
+      ([categories, categoryId]) =>
+        categories.find((cat) => cat.id === categoryId) || null
     )
   );
   constructor(
