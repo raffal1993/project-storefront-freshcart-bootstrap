@@ -4,7 +4,7 @@ import {
   Input,
   ViewEncapsulation,
 } from '@angular/core';
-import { CategoryProductsPageQueryModel } from 'src/app/query-models/categories-products-page-query.model';
+import { CategoryQueryModel } from 'src/app/query-models/categories-products-page-query.model';
 
 @Component({
   selector: 'app-products-sidebar',
@@ -14,5 +14,5 @@ import { CategoryProductsPageQueryModel } from 'src/app/query-models/categories-
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsSidebarComponent {
-  @Input() categories: CategoryProductsPageQueryModel[] | null = [];
+  @Input() categories: CategoryQueryModel[] | null = [];
 }
