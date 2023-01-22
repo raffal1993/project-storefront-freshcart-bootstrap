@@ -5,11 +5,13 @@
       <div class="row gx-10">
         <aside class="col-lg-3 col-md-4 mb-6 mb-md-0">
           <app-products-sidebar
-            [categories$]="categories$"
+            [categories]="categories$ | async"
           ></app-products-sidebar>
         </aside>
         <section class="col-lg-9 col-md-12">
-          <app-products-content [category$]="category$"></app-products-content>
+          <app-products-content
+            [category]="category$ | async"
+          ></app-products-content>
         </section>
       </div>
     </div>

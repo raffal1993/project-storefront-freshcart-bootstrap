@@ -4,8 +4,7 @@ import {
   Input,
   ViewEncapsulation,
 } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { CategoryModel } from 'src/app/models/category.model';
+import { CategoryProductsPageQueryModel } from 'src/app/query-models/categories-products-page-query.model';
 
 @Component({
   selector: 'app-products-sidebar',
@@ -15,5 +14,5 @@ import { CategoryModel } from 'src/app/models/category.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsSidebarComponent {
-  @Input() categories$: Observable<CategoryModel[]> = of([]);
+  @Input() categories: CategoryProductsPageQueryModel[] | null = [];
 }
