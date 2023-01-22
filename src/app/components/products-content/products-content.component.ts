@@ -4,7 +4,10 @@ import {
   Input,
   ViewEncapsulation,
 } from '@angular/core';
-import { CategoryQueryModel } from 'src/app/query-models/categories-products-page-query.model';
+import {
+  CategoryQueryModel,
+  ProductQueryModel,
+} from 'src/app/query-models/categories-products-page-query.model';
 
 @Component({
   selector: 'app-products-content',
@@ -15,4 +18,5 @@ import { CategoryQueryModel } from 'src/app/query-models/categories-products-pag
 })
 export class ProductsContentComponent {
   @Input() category: CategoryQueryModel | null = null;
+  @Input() products: ProductQueryModel[] | null = [];
 }

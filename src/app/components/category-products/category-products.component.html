@@ -11,6 +11,7 @@
         <section class="col-lg-9 col-md-12">
           <app-products-content
             [category]="category$ | async"
+            [products]="customizedProducts$ | async"
           ></app-products-content>
         </section>
       </div>
