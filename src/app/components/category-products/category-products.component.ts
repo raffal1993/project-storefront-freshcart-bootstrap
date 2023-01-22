@@ -3,6 +3,10 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { combineLatest, map, Observable, shareReplay } from 'rxjs';
+import { CategoryModel } from '../../models/category.model';
+import { CategoriesService } from '../../services/categories.service';
 
 @Component({
   selector: 'app-category-products',
@@ -11,4 +15,22 @@ import {
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CategoryProductsComponent {}
+export class CategoryProductsComponent {
+  readonly categories$: Observable<CategoryModel[]> = this._categoriesService
+    .getAll()
+    .pipe(shareReplay(1));
+
+  readonly category$: Observable<CategoryModel | null> = combineLatest([
+    this.categories$,
+    this._activatedRoute.params.pipe(map((params) => params['categoryId'])),
+  ]).pipe(
+    map(
+      ([categories, categoryId]) =>
+        categories.find((cat) => cat.id === categoryId) || null
+    )
+  );
+  constructor(
+    private _categoriesService: CategoriesService,
+    private _activatedRoute: ActivatedRoute
+  ) {}
+}
