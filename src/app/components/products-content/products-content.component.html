@@ -4,3 +4,66 @@
     <h2 class="mb-0 fs-1">{{ category.name }}</h2>
   </div>
 </div>
+<!-- text -->
+<div class="d-lg-flex justify-content-between align-items-center">
+  <div class="mb-3 mb-lg-0">
+    <p class="mb-0">
+      <span class="text-dark">{{ products?.length || 0 }} </span> Products found
+    </p>
+  </div>
+</div>
+
+<!------ PRODUCTS ------>
+<div *ngFor="let item of products" class="row g-4 row-cols-1 mt-2">
+  <div class="col">
+    <!-- card -->
+    <div class="card card-product">
+      <!-- card body -->
+      <div class="card-body">
+        <div class="row align-items-center">
+          <!-- col -->
+          <div class="col-md-4 col-12">
+            <div class="text-center position-relative">
+              <!-- img -->
+              <img
+                class="mb-3 img-fluid"
+                [src]="'.' + item.imageUrl"
+                [alt]="item.name"
+              />
+            </div>
+          </div>
+          <div class="col-md-8 col-12 flex-grow-1">
+            <!-- heading -->
+            <div class="text-small mb-1">
+              <small *ngIf="category" class="text-decoration-none text-muted">{{
+                category.name
+              }}</small>
+            </div>
+            <h2 class="fs-6 text-inherit text-decoration-none">
+              {{ item.name }}
+            </h2>
+            <div>
+              <!-- rating -->
+              <small *ngIf="item.ratingStars as star" class="text-warning">
+                <i *ngFor="let i of star.fill" class="bi bi-star-fill"></i>
+                <i *ngFor="let i of star.half" class="bi bi-star-half"></i>
+                <i *ngFor="let i of star.empty" class="bi bi-star"></i>
+              </small>
+              <span class="text-muted small"
+                >{{ item.ratingValue }}({{ item.ratingCount }})</span
+              >
+            </div>
+            <div class="mt-6">
+              <!-- price -->
+              <div>
+                <span class="text-dark">{{
+                  item.price | currency : "USD" : "symbol" : "1.0-0"
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
