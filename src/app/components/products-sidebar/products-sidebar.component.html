@@ -25,5 +25,28 @@
         </li>
       </ul>
     </div>
+    <!-- FILTER BY PRICE -->
+    <div class="mb-8">
+      <!-- price -->
+      <h5 class="mb-3">Price</h5>
+      <div>
+        <form [formGroup]="priceForm">
+          <input
+            type="number"
+            oninput="validity.valid||(value='')"
+            formControlName="priceFrom"
+            class="form-control mb-3"
+            placeholder="Price From"
+          />
+          <input
+            type="number"
+            oninput="validity.valid||(value='')"
+            formControlName="priceTo"
+            class="form-control mb-3"
+            placeholder="Price To"
+          />
+        </form>
+      </div>
+    </div>
   </div>
 </div>
