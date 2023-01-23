@@ -1,4 +1,4 @@
-<section class="my-lg-14 my-8">
+<section class="my-8">
   <div class="container pb-8 pb-md-12">
     <ng-container *ngIf="fruitsAndVegetables$ | async as item">
       <h5 class="row fw-bold fs-4 text-dark p-3">{{ item.name }}</h5>
@@ -30,7 +30,7 @@
     </ng-container>
   </div>
 
-  <div class="container pb-12 pb-md-8">
+  <div class="container pb-4 pb-lg-0">
     <ng-container *ngIf="snackAndMunchies$ | async as item">
       <h5 class="row fw-bold fs-4 text-dark p-3">{{ item.name }}</h5>
       <div class="row row-cols-3 row-cols-lg-5 g-3">
