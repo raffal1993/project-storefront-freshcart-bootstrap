@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { sortOptions } from '../commons/sortOptions';
 import { SortOptions } from '../types/sortOptions.type';
 import { PriceFilter } from '../types/priceFilter.type';
+import { RatingFilter } from '../types/ratingFilter.type';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsOptionsService {
@@ -11,4 +12,12 @@ export class ProductsOptionsService {
 
   readonly _priceFilterSubject: BehaviorSubject<PriceFilter> =
     new BehaviorSubject<PriceFilter>({ priceFrom: null, priceTo: null });
+
+  readonly _ratingFilterSubject: BehaviorSubject<RatingFilter> =
+    new BehaviorSubject<RatingFilter>({
+      5: false,
+      4: false,
+      3: false,
+      2: false,
+    });
 }
