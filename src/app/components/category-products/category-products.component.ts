@@ -15,6 +15,7 @@ import { SortOptions } from 'src/app/types/sortOptions.type';
 import { getProductsWithRatingStars } from 'src/app/utils/getProductsWithRatingStars';
 import { sortProducts } from 'src/app/utils/sortProducts';
 import { PriceFilter } from 'src/app/types/priceFilter.type';
+import { RatingFilter } from 'src/app/types/ratingFilter.type';
 
 @Component({
   selector: 'app-category-products',
@@ -47,6 +48,9 @@ export class CategoryProductsComponent {
 
   readonly priceFilter$: Observable<PriceFilter> =
     this._productsOptionsService._priceFilterSubject.asObservable();
+
+  readonly ratingFilter$: Observable<RatingFilter> =
+    this._productsOptionsService._ratingFilterSubject.asObservable();
 
   readonly customizedProducts$: Observable<ProductQueryModel[]> = combineLatest(
     [this.products$, this.category$, this.activeSortOption$]

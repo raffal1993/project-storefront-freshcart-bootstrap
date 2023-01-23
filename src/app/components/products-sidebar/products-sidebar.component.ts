@@ -23,11 +23,27 @@ export class ProductsSidebarComponent {
     priceTo: new FormControl(null, { validators: [Validators.min(0)] }),
   });
 
+  readonly ratingForm: FormGroup = new FormGroup({
+    ratingFive: new FormControl(),
+    ratingFour: new FormControl(),
+    ratingThree: new FormControl(),
+    ratingTwo: new FormControl(),
+  });
+
   constructor(private _productsOptionsService: ProductsOptionsService) {}
 
   ngAfterViewInit(): void {
     this.priceForm.valueChanges.subscribe((data) =>
       this._productsOptionsService._priceFilterSubject.next(data)
+    );
+
+    this.ratingForm.valueChanges.subscribe((ratings) =>
+      this._productsOptionsService._ratingFilterSubject.next({
+        '5': ratings.ratingFive || false,
+        '4': ratings.ratingFour || false,
+        '3': ratings.ratingThree || false,
+        '2': ratings.ratingTwo || false,
+      })
     );
   }
 }
