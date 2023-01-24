@@ -6,6 +6,7 @@ import { PriceFilter } from '../types/priceFilter.type';
 import { RatingFilter } from '../types/ratingFilter.type';
 import { PaginationOptions } from '../types/paginationOptions.type';
 import { defaultPageOptions } from '../commons/paginationOptions';
+import { ratingFilterInitialValues } from '../commons/ratingFilterOptions';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsOptionsService {
@@ -16,16 +17,18 @@ export class ProductsOptionsService {
     new BehaviorSubject<PriceFilter>({ priceFrom: null, priceTo: null });
 
   readonly _ratingFilterSubject: BehaviorSubject<RatingFilter> =
-    new BehaviorSubject<RatingFilter>({
-      5: false,
-      4: false,
-      3: false,
-      2: false,
-    });
+    new BehaviorSubject<RatingFilter>(ratingFilterInitialValues);
 
   readonly _paginationOptionsSubject: BehaviorSubject<PaginationOptions> =
     new BehaviorSubject<PaginationOptions>(defaultPageOptions);
 
   readonly _storesFilterSubject: BehaviorSubject<string[]> =
     new BehaviorSubject<string[]>([]);
+
+  resetOptions() {
+    this._priceFilterSubject.next({ priceFrom: null, priceTo: null });
+    this._ratingFilterSubject.next(ratingFilterInitialValues);
+    this._paginationOptionsSubject.next(defaultPageOptions);
+    this._storesFilterSubject.next([]);
+  }
 }
