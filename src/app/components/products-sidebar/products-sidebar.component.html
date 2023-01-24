@@ -25,6 +25,35 @@
         </li>
       </ul>
     </div>
+
+    <!-- FILTER BY STORE -->
+    <div class="mb-8">
+      <h5 class="mb-3">Stores</h5>
+      <div class="my-4">
+        <!-- Search Store -->
+        <input
+          type="search"
+          class="form-control"
+          placeholder="Search by store"
+        />
+      </div>
+      <!-- form check -->
+      <form [formControl]="storesForm" ngDefaultControl>
+        <div *ngFor="let item of stores" class="form-check mb-2">
+          <!-- input -->
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [value]="item.id"
+            id="{{ item.name }}"
+          />
+          <label class="form-check-label" for="eGrocery">
+            {{ item.name }}
+          </label>
+        </div>
+      </form>
+    </div>
+
     <!-- FILTER BY PRICE -->
     <div class="mb-8">
       <!-- price -->
