@@ -73,52 +73,57 @@
 </div>
 
 <!-- PAGINATION -->
-<div class="row row-cols-2 mt-8">
-  <ng-container
-    [formGroup]="paginationForm"
-    *ngIf="pageOptions$ | async as pageOptions"
-  >
-    <nav>
-      <p class="fw-bold mb-1">Limit</p>
-      <ul
-        formControlName="limit"
-        ngDefaultControl
-        class="pagination pagination-md"
-      >
-        <li
-          [value]="item"
-          class="page-item"
-          *ngFor="let item of pageLimit$ | async"
+<div
+  *ngIf="productsToDisplay$ | async as productsToDisplay"
+  class="row row-cols-2 mt-8"
+>
+  <ng-container *ngIf="productsToDisplay.length > 0">
+    <ng-container
+      [formGroup]="paginationForm"
+      *ngIf="pageOptions$ | async as pageOptions"
+    >
+      <nav>
+        <p class="fw-bold mb-1">Limit</p>
+        <ul
+          formControlName="limit"
+          ngDefaultControl
+          class="pagination pagination-md"
         >
-          <a
-            (click)="onPageOptionsChange(item, 'limit')"
-            class="page-link cursor-pointer"
-            [ngClass]="{ active: pageOptions['limit'] === item }"
-            >{{ item }}</a
+          <li
+            [value]="item"
+            class="page-item"
+            *ngFor="let item of pageLimit$ | async"
           >
-        </li>
-      </ul>
-    </nav>
-    <nav>
-      <p class="fw-bold mb-1">Pagination</p>
-      <ul
-        formControlName="pagination"
-        ngDefaultControl
-        class="pagination pagination-sm"
-      >
-        <li
-          [value]="item"
-          class="page-item"
-          *ngFor="let item of pages$ | async"
+            <a
+              (click)="onPageOptionsChange(item, 'limit')"
+              class="page-link cursor-pointer"
+              [ngClass]="{ active: pageOptions['limit'] === item }"
+              >{{ item }}</a
+            >
+          </li>
+        </ul>
+      </nav>
+      <nav>
+        <p class="fw-bold mb-1">Pagination</p>
+        <ul
+          formControlName="pagination"
+          ngDefaultControl
+          class="pagination pagination-sm"
         >
-          <a
-            (click)="onPageOptionsChange(item, 'pagination')"
-            class="page-link cursor-pointer"
-            [ngClass]="{ active: pageOptions['pagination'] === item }"
-            >{{ item }}</a
+          <li
+            [value]="item"
+            class="page-item"
+            *ngFor="let item of pages$ | async"
           >
-        </li>
-      </ul>
-    </nav>
+            <a
+              (click)="onPageOptionsChange(item, 'pagination')"
+              class="page-link cursor-pointer"
+              [ngClass]="{ active: pageOptions['pagination'] === item }"
+              >{{ item }}</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </ng-container>
   </ng-container>
 </div>

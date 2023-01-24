@@ -98,8 +98,8 @@ export class ProductsContentComponent {
         this.paginationForm.get('pagination')?.setValue(newPage);
 
       const newValues = hasToChangePage
-        ? { ...values, pagination: newPage }
-        : values;
+        ? { ...values, pagination: newPage || 1 }
+        : { ...values, pagination: values.pagination || 1 };
 
       return this._productsOptionsService._paginationOptionsSubject.next({
         ...newValues,
