@@ -1,20 +1,22 @@
+import { sortOptionsModel } from '../commons/sortOptions';
 import { ProductQueryModel } from '../query-models/categories-products-page-query.model';
+
 import { SortOptions } from '../types/sortOptions.type';
 
 export const sortProducts = (
   products: ProductQueryModel[],
   type: SortOptions
 ) => {
-  switch (type) {
-    case 'Featured':
-      return products.sort((a, b) =>
-        a.featureValue < b.featureValue ? 1 : -1
-      );
-    case 'Avg. Rating':
-      return products.sort((a, b) => (a.ratingValue > b.ratingValue ? -1 : 1));
-    case 'Price: High to Low':
-      return products.sort((a, b) => (a.price > b.price ? -1 : 1));
-    case 'Price: Low to High':
-      return products.sort((a, b) => (a.price > b.price ? 1 : -1));
-  }
+  const option = sortOptionsModel[type].name as keyof ProductQueryModel;
+  const dir = sortOptionsModel[type].dir;
+
+  return products.sort((a, b) =>
+    dir === 'desc'
+      ? a[option] < b[option]
+        ? 1
+        : -1
+      : a[option] > b[option]
+      ? 1
+      : -1
+  );
 };
