@@ -6,3 +6,25 @@ export const sortOptions: SortOptions[] = [
   'Price: High to Low',
   'Avg. Rating',
 ];
+
+export const sortOptionsModel: Record<
+  SortOptions,
+  { name: string; dir: string }
+> = {
+  Featured: {
+    name: 'featureValue',
+    dir: 'desc',
+  },
+  'Price: Low to High': {
+    name: 'price',
+    dir: 'asc',
+  },
+  'Price: High to Low': {
+    name: 'price',
+    dir: 'desc',
+  },
+  'Avg. Rating': {
+    name: 'ratingValue',
+    dir: 'desc',
+  },
+};
