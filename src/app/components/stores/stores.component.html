@@ -1,17 +1,19 @@
 <section class="my-lg-14 my-8">
   <div class="container">
-    <h5 class="row fw-bold fs-4 text-dark py-3 px-1">Stores</h5>
-    <h5 class="row fw-bold fs-6 text-dark py-3 px-1 d-inline">
+    <h5 class="row fw-bold fs-4 text-dark p-3">Stores</h5>
+    <h5 class="row fw-bold fs-6 text-dark p-3 d-inline">
       We have
       <span class="text-success p-0">{{ vendorsQuantity$ | async }}</span>
       vendors now
     </h5>
-    <div class="row row-cols-1 row-cols-lg-3 row-cols-sm-2 gap-3 mt-3">
-      <div *ngFor="let item of stores$ | async" class="row">
-        <div class="card flex-row align-items-center py-5 px-4 card-product">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gap-0 mt-3">
+      <div *ngFor="let item of stores$ | async" class="col">
+        <div
+          class="card flex-row align-items-center mb-5 py-5 px-4 card-product"
+        >
           <div>
             <img
-              [src]="item.logoUrl"
+              [src]="'.' + item.logoUrl"
               [alt]="item.name"
               class="rounded-circle icon-shape icon-xl"
             />
