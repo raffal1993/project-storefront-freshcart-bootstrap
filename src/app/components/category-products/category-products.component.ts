@@ -46,12 +46,6 @@ export class CategoryProductsComponent {
     )
   );
 
-  readonly stores$: Observable<StoreCategoriesSidebarQueryModel[]> =
-    this._storesService.getAll().pipe(
-      shareReplay(1),
-      map((stores) => stores.map((s) => ({ id: s.id, name: s.name })))
-    );
-
   readonly activeSortOption$: Observable<SortOptions> =
     this._productsOptionsService._activeSortOptionsSubject.asObservable();
 
@@ -63,6 +57,22 @@ export class CategoryProductsComponent {
 
   readonly storesFilter$: Observable<string[]> =
     this._productsOptionsService._storesFilterSubject.asObservable();
+
+  readonly searchByStoreInput$: Observable<string> =
+    this._productsOptionsService._searchByStoreSubject.asObservable();
+
+  readonly stores$: Observable<StoreCategoriesSidebarQueryModel[]> =
+    combineLatest([
+      this._storesService.getAll(),
+      this.searchByStoreInput$,
+    ]).pipe(
+      shareReplay(1),
+      map(([stores, input]) => {
+        return stores
+          .filter((s) => (input ? !!s.name.match(new RegExp(input, 'i')) : s))
+          .map((s) => ({ id: s.id, name: s.name }));
+      })
+    );
 
   readonly customizedProducts$: Observable<ProductQueryModel[]> = combineLatest(
     [

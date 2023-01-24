@@ -35,6 +35,8 @@ export class ProductsSidebarComponent {
 
   readonly storesForm: FormControl = new FormControl();
 
+  readonly searchByStoreForm: FormControl = new FormControl();
+
   readonly storesFilter$: Observable<string[]> =
     this._productsOptionsService._storesFilterSubject.asObservable();
 
@@ -45,6 +47,7 @@ export class ProductsSidebarComponent {
     this.priceForm.reset();
     this.ratingForm.reset();
     this.storesForm.reset();
+    this.searchByStoreForm.reset();
   }
 
   ngAfterViewInit(): void {
@@ -67,6 +70,10 @@ export class ProductsSidebarComponent {
         ? oldValues.filter((v) => v !== id)
         : [...oldValues, id];
       id && this._productsOptionsService._storesFilterSubject.next(newValues);
+    });
+
+    this.searchByStoreForm.valueChanges.subscribe((value) => {
+      this._productsOptionsService._searchByStoreSubject.next(value);
     });
   }
 }
