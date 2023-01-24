@@ -5,6 +5,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { CategoryQueryModel } from 'src/app/query-models/categories-products-page-query.model';
 import { StoreCategoriesSidebarQueryModel } from 'src/app/query-models/store-query.model';
 import { ProductsOptionsService } from 'src/app/services/products-options.service';
@@ -34,7 +35,17 @@ export class ProductsSidebarComponent {
 
   readonly storesForm: FormControl = new FormControl();
 
+  readonly storesFilter$: Observable<string[]> =
+    this._productsOptionsService._storesFilterSubject.asObservable();
+
   constructor(private _productsOptionsService: ProductsOptionsService) {}
+
+  reset() {
+    this._productsOptionsService.resetOptions();
+    this.priceForm.reset();
+    this.ratingForm.reset();
+    this.storesForm.reset();
+  }
 
   ngAfterViewInit(): void {
     this.priceForm.valueChanges.subscribe((data) =>
@@ -55,7 +66,7 @@ export class ProductsSidebarComponent {
       const newValues = oldValues.includes(id)
         ? oldValues.filter((v) => v !== id)
         : [...oldValues, id];
-      this._productsOptionsService._storesFilterSubject.next(newValues);
+      id && this._productsOptionsService._storesFilterSubject.next(newValues);
     });
   }
 }
