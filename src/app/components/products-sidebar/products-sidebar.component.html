@@ -19,7 +19,10 @@
           aria-expanded="false"
           aria-controls="categoryFlushOne"
         >
-          <a class="nav-link" [routerLink]="'/categories/' + item.id"
+          <a
+            (click)="reset()"
+            class="nav-link"
+            [routerLink]="'/categories/' + item.id"
             >{{ item.name }} <i class="feather-icon icon-chevron-right"></i
           ></a>
         </li>
@@ -38,12 +41,17 @@
         />
       </div>
       <!-- form check -->
-      <form [formControl]="storesForm" ngDefaultControl>
+      <form
+        [formControl]="storesForm"
+        ngDefaultControl
+        *ngIf="storesFilter$ | async as storesFilter"
+      >
         <div *ngFor="let item of stores" class="form-check mb-2">
           <!-- input -->
           <input
             class="form-check-input"
             type="checkbox"
+            [checked]="storesFilter.includes(item.id)"
             [value]="item.id"
             id="{{ item.name }}"
           />
