@@ -1,0 +1,81 @@
+<main>
+  <!-- section -->
+  <section class="mt-8 mb-14">
+    <div class="container">
+      <!-- row -->
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="mb-8">
+            <!-- heading -->
+            <h1 class="mb-1">My Wishlist</h1>
+            <p>
+              There are {{ (wishlistProducts$ | async)?.length || 0 }} products
+              in this wishlist.
+            </p>
+          </div>
+          <div>
+            <!-- table -->
+            <div
+              *ngIf="wishlistProducts$ | async as wishlistProducts"
+              class="table-responsive"
+            >
+              <table
+                *ngIf="wishlistProducts.length > 0"
+                class="table text-nowrap table-with-checkbox"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th></th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- PRODUCT -->
+                  <tr *ngFor="let item of wishlistProducts">
+                    <td class="align-middle">
+                      <img
+                        [src]="'.' + item.imageUrl"
+                        class="icon-shape icon-xxl"
+                        [alt]="item.name"
+                      />
+                    </td>
+                    <td class="align-middle">
+                      <div>
+                        <h5 class="fs-6 mb-0">
+                          <a class="text-inherit">{{ item.name }}</a>
+                        </h5>
+                      </div>
+                    </td>
+                    <td class="align-middle">{{ item.price | currency }}</td>
+                    <td class="align-middle">
+                      <span class="badge bg-secondary">Unknown</span>
+                    </td>
+                    <td class="align-middle">
+                      <div class="btn btn-info btn-sm">Add to Cart</div>
+                    </td>
+                    <td class="align-middle">
+                      <a
+                        (click)="removeProduct(item.id)"
+                        class="text-muted cursor-pointer"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        aria-label="Delete"
+                        data-bs-original-title="Delete"
+                      >
+                        <i class="feather-icon icon-trash-2"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

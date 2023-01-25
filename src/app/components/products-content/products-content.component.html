@@ -62,6 +62,17 @@
                 [src]="'.' + item.imageUrl"
                 [alt]="item.name"
               />
+              <div class="card-product-action">
+                <a
+                  (click)="addProductToWishlist(item.id)"
+                  class="btn-action cursor-pointer"
+                  data-bs-toggle="tooltip"
+                  data-bs-html="true"
+                  aria-label="Wishlist"
+                  data-bs-original-title="Wishlist"
+                  ><i class="bi bi-heart"></i
+                ></a>
+              </div>
             </div>
           </div>
           <div class="col-md-8 col-12 flex-grow-1">

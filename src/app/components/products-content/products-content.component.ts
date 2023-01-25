@@ -24,6 +24,7 @@ import {
   defaultPageOptions,
   pageLimitOptions,
 } from 'src/app/commons/paginationOptions';
+import { UserProductsService } from 'src/app/services/user-products.service';
 
 @Component({
   selector: 'app-products-content',
@@ -78,7 +79,10 @@ export class ProductsContentComponent {
     pagination: new FormControl(defaultPageOptions.pagination),
   });
 
-  constructor(private _productsOptionsService: ProductsOptionsService) {}
+  constructor(
+    private _productsOptionsService: ProductsOptionsService,
+    private _userProductsService: UserProductsService
+  ) {}
 
   onPageOptionsChange(value: number, name: keyof PaginationOptions): void {
     this.paginationForm.get(name)?.setValue(value);
@@ -86,6 +90,10 @@ export class ProductsContentComponent {
 
   onResponsiveFiltersToggle() {
     this._productsOptionsService.toggleResponsiveSidebar();
+  }
+
+  addProductToWishlist(id: string) {
+    this._userProductsService.addToWishlist(id);
   }
 
   ngAfterViewInit(): void {

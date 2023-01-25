@@ -11,6 +11,7 @@ import { ProductModel } from '../../models/product.model';
 import { StoresService } from '../../services/stores.service';
 import { ProductsService } from '../../services/products.service';
 import { FormControl } from '@angular/forms';
+import { UserProductsService } from 'src/app/services/user-products.service';
 
 @Component({
   selector: 'app-store-products-details',
@@ -55,6 +56,11 @@ export class StoreProductsDetailsComponent {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _storesService: StoresService,
-    private _productsService: ProductsService
+    private _productsService: ProductsService,
+    private _userProductsService: UserProductsService
   ) {}
+
+  addProductToWishlist(id: string) {
+    this._userProductsService.addToWishlist(id);
+  }
 }
