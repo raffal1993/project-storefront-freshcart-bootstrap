@@ -15,7 +15,10 @@
 </div>
 
 <!------ PRODUCTS ------>
-<div *ngFor="let item of products" class="row g-4 row-cols-1 mt-2">
+<div
+  *ngFor="let item of productsToDisplay$ | async"
+  class="row g-4 row-cols-1 mt-2"
+>
   <div class="col">
     <!-- card -->
     <div class="card card-product">
@@ -67,4 +70,60 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- PAGINATION -->
+<div
+  *ngIf="productsToDisplay$ | async as productsToDisplay"
+  class="row row-cols-2 mt-8"
+>
+  <ng-container *ngIf="productsToDisplay.length > 0">
+    <ng-container
+      [formGroup]="paginationForm"
+      *ngIf="pageOptions$ | async as pageOptions"
+    >
+      <nav>
+        <p class="fw-bold mb-1">Limit</p>
+        <ul
+          formControlName="limit"
+          ngDefaultControl
+          class="pagination pagination-md"
+        >
+          <li
+            [value]="item"
+            class="page-item"
+            *ngFor="let item of pageLimit$ | async"
+          >
+            <a
+              (click)="onPageOptionsChange(item, 'limit')"
+              class="page-link cursor-pointer"
+              [ngClass]="{ active: pageOptions['limit'] === item }"
+              >{{ item }}</a
+            >
+          </li>
+        </ul>
+      </nav>
+      <nav>
+        <p class="fw-bold mb-1">Pagination</p>
+        <ul
+          formControlName="pagination"
+          ngDefaultControl
+          class="pagination pagination-sm"
+        >
+          <li
+            [value]="item"
+            class="page-item"
+            *ngFor="let item of pages$ | async"
+          >
+            <a
+              (click)="onPageOptionsChange(item, 'pagination')"
+              class="page-link cursor-pointer"
+              [ngClass]="{ active: pageOptions['pagination'] === item }"
+              >{{ item }}</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </ng-container>
+  </ng-container>
 </div>

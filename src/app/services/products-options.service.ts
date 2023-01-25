@@ -4,6 +4,8 @@ import { sortOptions } from '../commons/sortOptions';
 import { SortOptions } from '../types/sortOptions.type';
 import { PriceFilter } from '../types/priceFilter.type';
 import { RatingFilter } from '../types/ratingFilter.type';
+import { PaginationOptions } from '../types/paginationOptions.type';
+import { defaultPageOptions } from '../commons/paginationOptions';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsOptionsService {
@@ -20,4 +22,7 @@ export class ProductsOptionsService {
       3: false,
       2: false,
     });
+
+  readonly _paginationOptionsSubject: BehaviorSubject<PaginationOptions> =
+    new BehaviorSubject<PaginationOptions>(defaultPageOptions);
 }
