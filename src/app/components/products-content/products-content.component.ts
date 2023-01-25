@@ -84,6 +84,10 @@ export class ProductsContentComponent {
     this.paginationForm.get(name)?.setValue(value);
   }
 
+  onResponsiveFiltersToggle() {
+    this._productsOptionsService.toggleResponsiveSidebar();
+  }
+
   ngAfterViewInit(): void {
     combineLatest([
       this.productsData$,

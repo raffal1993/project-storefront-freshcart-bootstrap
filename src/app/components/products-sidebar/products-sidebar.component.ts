@@ -40,6 +40,9 @@ export class ProductsSidebarComponent {
   readonly storesFilter$: Observable<string[]> =
     this._productsOptionsService._storesFilterSubject.asObservable();
 
+  readonly isResponsiveFilterOn$: Observable<boolean> =
+    this._productsOptionsService._responsiveFiltersSubject.asObservable();
+
   constructor(private _productsOptionsService: ProductsOptionsService) {}
 
   reset() {
@@ -48,6 +51,10 @@ export class ProductsSidebarComponent {
     this.ratingForm.reset();
     this.storesForm.reset();
     this.searchByStoreForm.reset();
+  }
+
+  onResponsiveFiltersToggle() {
+    this._productsOptionsService.toggleResponsiveSidebar();
   }
 
   ngAfterViewInit(): void {

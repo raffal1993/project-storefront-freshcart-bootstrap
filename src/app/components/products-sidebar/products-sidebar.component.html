@@ -1,9 +1,23 @@
 <div
-  class="offcanvas offcanvas-start offcanvas-collapse w-md-50"
+  class="offcanvas offcanvas-start offcanvas-collapse w-md-75"
+  [ngClass]="{ show: isResponsiveFilterOn$ | async }"
   tabindex="-1"
   id="offcanvasCategory"
   aria-labelledby="offcanvasCategoryLabel"
 >
+  <div
+    class="offcanvas-header d-lg-none"
+    [ngClass]="{ show: isResponsiveFilterOn$ | async }"
+  >
+    <h5 class="offcanvas-title" id="offcanvasCategoryLabel">Filter</h5>
+    <button
+      (click)="onResponsiveFiltersToggle()"
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
   <div class="offcanvas-body ps-lg-2 pt-lg-0">
     <!-- CATEGORIES -->
     <div class="mb-8">
