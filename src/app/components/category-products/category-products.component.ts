@@ -18,6 +18,7 @@ import { PriceFilter } from 'src/app/types/priceFilter.type';
 import { RatingFilter } from 'src/app/types/ratingFilter.type';
 import { StoresService } from 'src/app/services/stores.service';
 import { StoreCategoriesSidebarQueryModel } from 'src/app/query-models/store-query.model';
+import { filterProducts } from 'src/app/utils/filterProducts';
 
 @Component({
   selector: 'app-category-products',
@@ -60,22 +61,33 @@ export class CategoryProductsComponent {
   readonly ratingFilter$: Observable<RatingFilter> =
     this._productsOptionsService._ratingFilterSubject.asObservable();
 
-  readonly storesFilter$: Observable<number[]> =
+  readonly storesFilter$: Observable<string[]> =
     this._productsOptionsService._storesFilterSubject.asObservable();
 
   readonly customizedProducts$: Observable<ProductQueryModel[]> = combineLatest(
-    [this.products$, this.category$, this.activeSortOption$]
+    [
+      this.products$,
+      this.category$,
+      this.activeSortOption$,
+      this.priceFilter$,
+      this.ratingFilter$,
+      this.storesFilter$,
+    ]
   ).pipe(
-    map(([products, category, sortOption]) => {
-      // Filter by category --->
-      const filteredProducts = products.filter(
-        (prod) => prod.categoryId === category?.id
+    map(([prods, category, sortO, priceF, ratingF, storesF]) => {
+      const filteredProducts = filterProducts(
+        prods,
+        category?.id || '',
+        priceF,
+        ratingF,
+        storesF
       );
+
       // Add ratingStars property --->
       const productsWithRatingStars =
         getProductsWithRatingStars(filteredProducts);
       // Sort --->
-      return sortProducts(productsWithRatingStars, sortOption);
+      return sortProducts(productsWithRatingStars, sortO);
     })
   );
 
