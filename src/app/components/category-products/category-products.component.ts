@@ -16,6 +16,8 @@ import { getProductsWithRatingStars } from 'src/app/utils/getProductsWithRatingS
 import { sortProducts } from 'src/app/utils/sortProducts';
 import { PriceFilter } from 'src/app/types/priceFilter.type';
 import { RatingFilter } from 'src/app/types/ratingFilter.type';
+import { StoresService } from 'src/app/services/stores.service';
+import { StoreCategoriesSidebarQueryModel } from 'src/app/query-models/store-query.model';
 
 @Component({
   selector: 'app-category-products',
@@ -43,6 +45,12 @@ export class CategoryProductsComponent {
     )
   );
 
+  readonly stores$: Observable<StoreCategoriesSidebarQueryModel[]> =
+    this._storesService.getAll().pipe(
+      shareReplay(1),
+      map((stores) => stores.map((s) => ({ id: s.id, name: s.name })))
+    );
+
   readonly activeSortOption$: Observable<SortOptions> =
     this._productsOptionsService._activeSortOptionsSubject.asObservable();
 
@@ -51,6 +59,9 @@ export class CategoryProductsComponent {
 
   readonly ratingFilter$: Observable<RatingFilter> =
     this._productsOptionsService._ratingFilterSubject.asObservable();
+
+  readonly storesFilter$: Observable<number[]> =
+    this._productsOptionsService._storesFilterSubject.asObservable();
 
   readonly customizedProducts$: Observable<ProductQueryModel[]> = combineLatest(
     [this.products$, this.category$, this.activeSortOption$]
@@ -72,6 +83,7 @@ export class CategoryProductsComponent {
     private _categoriesService: CategoriesService,
     private _activatedRoute: ActivatedRoute,
     private _productsService: ProductsService,
-    private _productsOptionsService: ProductsOptionsService
+    private _productsOptionsService: ProductsOptionsService,
+    private _storesService: StoresService
   ) {}
 }

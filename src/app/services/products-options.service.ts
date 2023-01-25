@@ -25,4 +25,7 @@ export class ProductsOptionsService {
 
   readonly _paginationOptionsSubject: BehaviorSubject<PaginationOptions> =
     new BehaviorSubject<PaginationOptions>(defaultPageOptions);
+
+  readonly _storesFilterSubject: BehaviorSubject<number[]> =
+    new BehaviorSubject<number[]>([]);
 }

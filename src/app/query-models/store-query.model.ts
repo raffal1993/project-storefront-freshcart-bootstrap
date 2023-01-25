@@ -5,3 +5,8 @@ export interface StoreHomePageQueryModel {
   distanceInMeters: number;
   logoUrl: string;
 }
+
+export interface StoreCategoriesSidebarQueryModel {
+  id: string;
+  name: string;
+}
