@@ -71,12 +71,26 @@
     <div class="row row-cols-2 row-cols-lg-4 row-cols-xl-6 g-2">
       <div *ngFor="let item of products$ | async" class="col">
         <div class="text-center mb-10">
-          <!-- img -->
-          <img
-            [src]="'.' + item.imageUrl"
-            [alt]="item.name"
-            class="card-image rounded-circle"
-          />
+          <div class="card card-product">
+            <!-- img -->
+            <img
+              [src]="'.' + item.imageUrl"
+              [alt]="item.name"
+              class="rounded"
+            />
+            <div class="card-product-action">
+              <a
+                (click)="addProductToWishlist(item.id)"
+                class="btn-action cursor-pointer"
+                data-bs-toggle="tooltip"
+                data-bs-html="true"
+                aria-label="Wishlist"
+                data-bs-original-title="Wishlist"
+                ><i class="bi bi-heart"></i
+              ></a>
+            </div>
+          </div>
+
           <!-- text -->
           <div class="mt-4">
             <h5 class="fs-6 mb-0">

@@ -12,20 +12,59 @@
   <div class="navbar navbar-light py-lg-4 pt-3 px-0 pb-0">
     <div class="container">
       <div class="row w-100 align-items-center g-lg-2 g-0">
-        <div class="col-xxl-2 col-lg-3">
-          <a class="navbar-brand d-none d-lg-block" routerLink="/">
-            <img
-              src="assets/images/logo/freshcart-logo.svg"
-              alt="eCommerce HTML Template"
-            />
-          </a>
-          <div class="d-flex justify-content-between w-100 d-lg-none">
+        <div class="">
+          <div class="d-flex justify-content-between w-100">
             <a class="navbar-brand" routerLink="/">
               <img
                 src="assets/images/logo/freshcart-logo.svg"
                 alt="eCommerce HTML Template"
               />
             </a>
+
+            <!-- WISHLIST -->
+            <div
+              class="col-md-2 col-xxl-2 ms-auto me-4 me-md-0 d-flex justify-content-end align-items-center"
+            >
+              <div class="list-inline">
+                <div class="list-inline-item">
+                  <a
+                    class="text-muted position-relative"
+                    [routerLink]="'/wishlist'"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-heart"
+                    >
+                      <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                      ></path>
+                    </svg>
+                    <ng-container
+                      *ngIf="
+                        wishlistProductsIds$ | async as wishlistProductsIds
+                      "
+                    >
+                      <span
+                        *ngIf="wishlistProductsIds.length > 0"
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success"
+                      >
+                        {{ wishlistProductsIds.length }}
+                        <span class="visually-hidden">unread messages</span>
+                      </span>
+                    </ng-container>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!--  -->
 
             <div class="d-flex d-md-none align-items-center lh-1">
               <!-- Button -->

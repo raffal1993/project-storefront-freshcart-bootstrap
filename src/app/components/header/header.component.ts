@@ -4,6 +4,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { UserProductsService } from 'src/app/services/user-products.service';
 import { CategoryModel } from '../../models/category.model';
 import { CategoriesService } from '../../services/categories.service';
 
@@ -23,7 +24,13 @@ export class HeaderComponent {
   public isCollapsed$: Observable<boolean> =
     this._isCollapsedSubject.asObservable();
 
-  constructor(private _categoriesService: CategoriesService) {}
+  readonly wishlistProductsIds$: Observable<string[]> =
+    this._userProductsService._wishlistProductsIdsSubject.asObservable();
+
+  constructor(
+    private _categoriesService: CategoriesService,
+    private _userProductsService: UserProductsService
+  ) {}
 
   onClickHamburgerMenu(type?: string): void {
     this._isCollapsedSubject.next(
