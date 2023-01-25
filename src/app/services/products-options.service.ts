@@ -25,10 +25,14 @@ export class ProductsOptionsService {
   readonly _storesFilterSubject: BehaviorSubject<string[]> =
     new BehaviorSubject<string[]>([]);
 
+  readonly _searchByStoreSubject: BehaviorSubject<string> =
+    new BehaviorSubject<string>('');
+
   resetOptions() {
     this._priceFilterSubject.next({ priceFrom: null, priceTo: null });
     this._ratingFilterSubject.next(ratingFilterInitialValues);
     this._paginationOptionsSubject.next(defaultPageOptions);
     this._storesFilterSubject.next([]);
+    this._searchByStoreSubject.next('');
   }
 }
