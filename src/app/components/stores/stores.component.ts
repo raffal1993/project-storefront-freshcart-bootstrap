@@ -20,7 +20,6 @@ export class StoresComponent {
     this._storesService.getAll(),
     this._storesService.getStoreTags(),
   ]).pipe(
-    shareReplay(1),
     map(([stores, tags]) =>
       stores.map((store) => ({
         id: store.id,
@@ -29,7 +28,8 @@ export class StoresComponent {
         distanceInMeters: Math.round((store.distanceInMeters / 1000) * 10) / 10,
         logoUrl: store.logoUrl,
       }))
-    )
+    ),
+    shareReplay(1)
   );
   readonly vendorsQuantity$: Observable<number> = this.stores$.pipe(
     map((stores) => stores.length)

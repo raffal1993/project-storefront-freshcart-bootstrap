@@ -3,7 +3,7 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, shareReplay } from 'rxjs';
 import { UserProductsService } from 'src/app/services/user-products.service';
 import { CategoryModel } from '../../models/category.model';
 import { CategoriesService } from '../../services/categories.service';
@@ -16,8 +16,9 @@ import { CategoriesService } from '../../services/categories.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  readonly categories$: Observable<CategoryModel[]> =
-    this._categoriesService.getAll();
+  readonly categories$: Observable<CategoryModel[]> = this._categoriesService
+    .getAll()
+    .pipe(shareReplay(1));
 
   private _isCollapsedSubject: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(true);
