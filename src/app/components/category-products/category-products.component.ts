@@ -66,12 +66,12 @@ export class CategoryProductsComponent {
       this._storesService.getAll(),
       this.searchByStoreInput$,
     ]).pipe(
-      shareReplay(1),
       map(([stores, input]) => {
         return stores
           .filter((s) => (input ? !!s.name.match(new RegExp(input, 'i')) : s))
           .map((s) => ({ id: s.id, name: s.name }));
-      })
+      }),
+      shareReplay(1)
     );
 
   readonly customizedProducts$: Observable<ProductQueryModel[]> = combineLatest(

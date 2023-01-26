@@ -23,8 +23,8 @@ export class WishlistComponent {
     this._productsService.getAll(),
     this.wishlistProductsIds$,
   ]).pipe(
-    shareReplay(1),
-    map(([products, ids]) => products.filter((prod) => ids.includes(prod.id)))
+    map(([products, ids]) => products.filter((prod) => ids.includes(prod.id))),
+    shareReplay(1)
   );
 
   constructor(
