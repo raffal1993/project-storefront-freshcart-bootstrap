@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { HeaderComponentModule } from './components/header/header.component-module';
 import { FooterComponentModule } from './components/footer/footer.component-module';
+import { ShoppingCartComponentModule } from './components/shopping-cart/shopping-cart.component-module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { FooterComponentModule } from './components/footer/footer.component-modu
     RouterModule,
     HeaderComponentModule,
     FooterComponentModule,
+    ShoppingCartComponentModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
