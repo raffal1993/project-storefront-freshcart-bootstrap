@@ -55,7 +55,12 @@
                       <span class="badge bg-secondary">Unknown</span>
                     </td>
                     <td class="align-middle">
-                      <div class="btn btn-info btn-sm">Add to Cart</div>
+                      <div
+                        (click)="addProductToShoppingCart(item.id)"
+                        class="btn btn-success btn-sm"
+                      >
+                        Add to Cart
+                      </div>
                     </td>
                     <td class="align-middle">
                       <a

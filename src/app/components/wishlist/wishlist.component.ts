@@ -35,4 +35,8 @@ export class WishlistComponent {
   removeProduct(id: string) {
     this._userProductsService.removeFromWishList(id);
   }
+
+  addProductToShoppingCart(id: string) {
+    this._userProductsService.addToShoppingCart(id);
+  }
 }

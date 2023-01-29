@@ -63,4 +63,8 @@ export class StoreProductsDetailsComponent {
   addProductToWishlist(id: string) {
     this._userProductsService.addToWishlist(id);
   }
+
+  addProductToShoppingCart(id: string) {
+    this._userProductsService.addToShoppingCart(id);
+  }
 }

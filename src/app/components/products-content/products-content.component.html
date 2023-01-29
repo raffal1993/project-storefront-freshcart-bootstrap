@@ -65,12 +65,21 @@
               <div class="card-product-action">
                 <a
                   (click)="addProductToWishlist(item.id)"
-                  class="btn-action cursor-pointer"
+                  class="btn-action cursor-pointer mx-1"
                   data-bs-toggle="tooltip"
                   data-bs-html="true"
                   aria-label="Wishlist"
                   data-bs-original-title="Wishlist"
                   ><i class="bi bi-heart"></i
+                ></a>
+                <a
+                  (click)="addProductToShoppingCart(item.id)"
+                  class="btn-action cursor-pointer mx-1"
+                  data-bs-toggle="tooltip"
+                  data-bs-html="true"
+                  aria-label="ShoppingCart"
+                  data-bs-original-title="ShoppingCart"
+                  ><i class="bi bi-cart-plus"></i
                 ></a>
               </div>
             </div>
